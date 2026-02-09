@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YSD2024 UPM - Ticket Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo i {
+            font-size: 2.5rem;
+            color: #4CAF50;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .logo-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .ticket-steps {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0 40px;
+            position: relative;
+        }
+        
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            width: 200px;
+        }
+        
+        .step-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ddd;
+            color: #666;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #ddd;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active .step-circle {
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 0 0 3px #4CAF50;
+        }
+        
+        .step.completed .step-circle {
+            background-color: #2E7D32;
+            color: white;
+            box-shadow: 0 0 0 3px #2E7D32;
+        }
+        
+        .step.completed .step-circle::after {
+            content: '✓';
+        }
+        
+        .step-line {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            width: 100%;
+            height: 4px;
+            background-color: #ddd;
+            z-index: 0;
+        }
+        
+        .step:first-child .step-line {
+            width: 50%;
+            left: 50%;
+        }
+        
+        .step:last-child .step-line {
+            width: 50%;
+            left: 0;
+        }
+        
+        .step-text {
+            font-weight: 500;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+            min-height: 400px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .ticket-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .ticket-option:hover {
+            border-color: #4CAF50;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.1);
+        }
+        
+        .ticket-option h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .ticket-option p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .ticket-price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .note {
+            background-color: #f9f9f9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #3d8b40;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover {
+            background-color: #e0e0e0;
+        }
+        
+        .quantity-input {
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+        
+        .total-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .total-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .total-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: #4CAF50;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        .ticket-preview {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 30px;
+            border: 1px dashed #ccc;
+        }
+        
+        .ticket-preview h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .preview-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preview-label {
+            font-weight: 600;
+            color: #666;
+        }
+        
+        .preview-value {
+            color: #333;
+            font-weight: 500;
+        }
+        
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .payment-method {
+            flex: 1;
+            min-width: 200px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+        
+        .payment-method.selected {
+            border-color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .payment-method i {
+            font-size: 2.5rem;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+        
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .success-icon {
+            font-size: 5rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        
+        .success-message h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .booking-id {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+            letter-spacing: 2px;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #f0f9f0;
+            border-radius: 5px;
+            display: inline-block;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #eee;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .step {
+                width: 120px;
+            }
+            
+            .step-text {
+                font-size: 0.8rem;
+            }
+            
+            .ticket-option {
+                padding: 20px;
+            }
+            
+            .payment-method {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-ticket-alt"></i>
+                    <div class="logo-text">
+                        <h1>YSD2024 UPM</h1>
+                        <p>Universiti Putra Malaysia Admission Ticket Registration</p>
+                    </div>
+                </div>
+                <div class="event-date">
+                    <p><i class="far fa-calendar-alt"></i> Event Date: 8th June 2024</p>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="ticket-steps">
+            <div class="step completed" id="step1">
+                <div class="step-circle">1</div>
+                <div class="step-text">Select Ticket</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step active" id="step2">
+                <div class="step-circle">2</div>
+                <div class="step-text">Booking Options</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step" id="step3">
+                <div class="step-circle">3</div>
+                <div class="step-text">Complete Booking</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step" id="step4">
+                <div class="step-circle">4</div>
+                <div class="step-text">Payment</div>
+                <div class="step-line"></div>
+            </div>
+            <div class="step" id="step5">
+                <div class="step-circle">5</div>
+                <div class="step-text">Confirmation</div>
+                <div class="step-line"></div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <!-- Page 1: Select Ticket -->
+            <div class="page active" id="page1">
+                <h2>Select Admission Ticket</h2>
+                <p class="note"><i class="fas fa-info-circle"></i> Free cancellation before redemption</p>
+                
+                <div class="ticket-option">
+                    <h3>Kids (5 to 12 years of age)</h3>
+                    <p>Admission ticket for children between 5 to 12 years old. Includes access to all YSD2024 activities at Universiti Putra Malaysia.</p>
+                    <div class="ticket-price">RM 60.00</div>
+                    <button class="btn btn-primary" onclick="selectTicket()">SELECT TICKET</button>
+                </div>
+                
+                <div class="note">
+                    <p><strong>Note:</strong> When you click SELECT, it will go to the booking options page.</p>
+                </div>
+            </div>
+            
+            <!-- Page 2: Booking Options -->
+            <div class="page" id="page2">
+                <h2>Booking Options</h2>
+                
+                <div class="ticket-option">
+                    <h3>Kids (5 to 12 years of age)</h3>
+                    <p>Admission ticket for children between 5 to 12 years old.</p>
+                    <div class="ticket-price">RM 60.00</div>
+                    
+                    <div class="quantity-selector">
+                        <label>Select Quantity:</label>
+                        <div style="display: flex; align-items: center; margin-top: 10px;">
+                            <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
+                            <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="20">
+                            <button class="quantity-btn" onclick="increaseQuantity()">+</button>
+                        </div>
+                        <p style="margin-top: 10px; color: #666; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> Can book as many numbers possible</p>
+                    </div>
+                    
+                    <div class="total-section">
+                        <div class="total-label">Total Amount</div>
+                        <div class="total-amount" id="totalAmount">RM 60.00</div>
+                    </div>
+                    
+                    <div class="navigation-buttons">
+                        <button class="btn btn-secondary" onclick="goToPage(1)">Back</button>
+                        <div>
+                            <button class="btn btn-secondary" onclick="addToCart()">ADD TO CART</button>
+                            <button class="btn btn-primary" onclick="bookNow()">BOOK NOW</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Page 3: Complete Booking -->
+            <div class="page" id="page3">
+                <h2>Complete Booking</h2>
+                <p class="note"><i class="fas fa-ticket-alt"></i> YSD2024 Universiti Putra Malaysia Ticket</p>
+                
+                <div class="form-group">
+                    <label for="participantName">Name of Lead Participant *</label>
+                    <input type="text" id="participantName" class="form-control" placeholder="Enter full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="participantEmail">Email Address *</label>
+                    <input type="email" id="participantEmail" class="form-control" placeholder="Enter email address">
+                </div>
+                
+                <div class="form-group">
+                    <label for="participantPhone">Phone Number *</label>
+                    <input type="tel" id="participantPhone" class="form-control" placeholder="Enter phone number">
+                </div>
+                
+                <div class="ticket-preview">
+                    <h4>Booking Summary</h4>
+                    <div class="preview-item">
+                        <span class="preview-label">Ticket Type:</span>
+                        <span class="preview-value">Kids (5 to 12 years of age)</span>
+                    </div>
+                    <div class="preview-item">
+                        <span class="preview-label">Event Date:</span>
+                        <span class="preview-value">8th June 2024</span>
+                    </div>
+                    <div class="preview-item">
+                        <span class="preview-label">Number of Tickets:</span>
+                        <span class="preview-value" id="previewQuantity">1</span>
+                    </div>
+                    <div class="preview-item">
+                        <span class="preview-label">Total Amount:</span>
+                        <span class="preview-value" id="previewTotal">RM 60.00</span>
+                    </div>
+                </div>
+                
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" onclick="goToPage(2)">Back</button>
+                    <button class="btn btn-primary" onclick="goToPayment()">GO TO PAYMENT</button>
+                </div>
+                
+                <p style="margin-top: 20px; color: #666; font-size: 0.9rem; text-align: center;">
+                    <i class="fas fa-info-circle"></i> Clicking "Go to Payment" will directly go to FPX UPM
+                </p>
+            </div>
+            
+            <!-- Page 4: Payment -->
+            <div class="page" id="page4">
+                <h2>Payment</h2>
+                <p>Complete your payment using FPX (Financial Process Exchange) UPM</p>
+                
+                <div class="ticket-preview">
+                    <h4>Payment Summary</h4>
+                    <div class="preview-item">
+                        <span class="preview-label">Name:</span>
+                        <span class="preview-value" id="paymentName">-</span>
+                    </div>
+                    <div class="preview-item">
+                        <span class="preview-label">Amount to Pay:</span>
+                        <span class="preview-value" id="paymentAmount">RM 60.00</span>
+                    </div>
+                    <div class="preview-item">
+                        <span class="preview-label">Booking Reference:</span>
+                        <span class="preview-value" id="paymentReference">YSD-2024-001</span>
+                    </div>
+                </div>
+                
+                <h3 style="margin: 30px 0 20px;">Select Payment Method</h3>
+                
+                <div class="payment-methods">
+                    <div class="payment-method selected" onclick="selectPayment('fpx')">
+                        <i class="fas fa-university"></i>
+                        <h4>FPX UPM</h4>
+                        <p>Direct bank transfer via FPX</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPayment('card')">
+                        <i class="far fa-credit-card"></i>
+                        <h4>Credit/Debit Card</h4>
+                        <p>Visa, Mastercard, etc.</p>
+                    </div>
+                    <div class="payment-method" onclick="selectPayment('ewallet')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <h4>E-Wallet</h4>
+                        <p>Touch 'n Go, GrabPay, etc.</p>
+                    </div>
+                </div>
+                
+                <div class="navigation-buttons">
+                    <button class="btn btn-secondary" onclick="goToPage(3)">Back</button>
+                    <button class="btn btn-primary" onclick="processPayment()">PAY NOW</button>
+                </div>
+                
+                <div class="note" style="margin-top: 30px;">
+                    <p><strong>Note:</strong> After purchasing ticket, the purchaser will be given admission ticket through their email.</p>
+                </div>
+            </div>
+            
+            <!-- Page 5: Confirmation -->
+            <div class="page" id="page5">
+                <div class="success-message">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Booking Successful!</h2>
+                    <p>Your admission ticket for YSD2024 UPM has been booked successfully.</p>
+                    <p>The admission ticket will be sent to your email shortly.</p>
+                    
+                    <div class="booking-id" id="confirmationRef">YSD-2024-001</div>
+                    
+                    <div class="ticket-preview" style="max-width: 500px; margin: 30px auto;">
+                        <h4>Admission Ticket YSD2024 UPM</h4>
+                        <div class="preview-item">
+                            <span class="preview-label">Name of Lead Participant:</span>
+                            <span class="preview-value" id="confirmationName">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Date Purchased:</span>
+                            <span class="preview-value" id="confirmationDate">-</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Quantity of Tickets:</span>
+                            <span class="preview-value" id="confirmationQuantity">1</span>
+                        </div>
+                        <div class="preview-item">
+                            <span class="preview-label">Booking Reference ID:</span>
+                            <span class="preview-value" id="confirmationBookingRef">-</span>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="printTicket()"><i class="fas fa-print"></i> Print Ticket</button>
+                        <button class="btn btn-secondary" onclick="goToPage(1)"><i class="fas fa-home"></i> Back to Home</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>YSD2024 Universiti Putra Malaysia &copy; 2024. All rights reserved.</p>
+            <p>For inquiries, contact: ysd2024@upm.edu.my | +603-9769 1234</p>
+        </footer>
+    </div>
+
+    <script>
+        // Current page state
+        let currentPage = 1;
+        let ticketQuantity = 1;
+        const ticketPrice = 60.00;
+        let selectedPayment = 'fpx';
+        
+        // DOM elements
+        const quantityInput = document.getElementById('quantity');
+        const totalAmountElement = document.getElementById('totalAmount');
+        const previewQuantityElement = document.getElementById('previewQuantity');
+        const previewTotalElement = document.getElementById('previewTotal');
+        const paymentNameElement = document.getElementById('paymentName');
+        const paymentAmountElement = document.getElementById('paymentAmount');
+        const paymentReferenceElement = document.getElementById('paymentReference');
+        const confirmationNameElement = document.getElementById('confirmationName');
+        const confirmationDateElement = document.getElementById('confirmationDate');
+        const confirmationQuantityElement = document.getElementById('confirmationQuantity');
+        const confirmationBookingRefElement = document.getElementById('confirmationBookingRef');
+        const confirmationRefElement = document.getElementById('confirmationRef');
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            updateTotalAmount();
+            updateStepIndicators();
+        });
+        
+        // Navigation functions
+        function goToPage(pageNumber) {
+            // Hide current page
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            
+            // Show new page
+            document.getElementById(`page${pageNumber}`).classList.add('active');
+            
+            // Update current page
+            currentPage = pageNumber;
+            
+            // Update step indicators
+            updateStepIndicators();
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        function updateStepIndicators() {
+            // Reset all steps
+            for (let i = 1; i <= 5; i++) {
+                const stepElement = document.getElementById(`step${i}`);
+                stepElement.classList.remove('active', 'completed');
+                
+                if (i < currentPage) {
+                    stepElement.classList.add('completed');
+                } else if (i === currentPage) {
+                    stepElement.classList.add('active');
+                }
+            }
+        }
+        
+        // Page 1: Select Ticket
+        function selectTicket() {
+            goToPage(2);
+        }
+        
+        // Page 2: Booking Options
+        function increaseQuantity() {
+            ticketQuantity = parseInt(quantityInput.value) + 1;
+            quantityInput.value = ticketQuantity;
+            updateTotalAmount();
+        }
+        
+        function decreaseQuantity() {
+            if (ticketQuantity > 1) {
+                ticketQuantity = parseInt(quantityInput.value) - 1;
+                quantityInput.value = ticketQuantity;
+                updateTotalAmount();
+            }
+        }
+        
+        function updateTotalAmount() {
+            ticketQuantity = parseInt(quantityInput.value);
+            const total = ticketQuantity * ticketPrice;
+            totalAmountElement.textContent = `RM ${total.toFixed(2)}`;
+            
+            // Update preview on page 3
+            previewQuantityElement.textContent = ticketQuantity;
+            previewTotalElement.textContent = `RM ${total.toFixed(2)}`;
+            
+            // Update payment amount on page 4
+            paymentAmountElement.textContent = `RM ${total.toFixed(2)}`;
+            
+            // Update confirmation quantity on page 5
+            confirmationQuantityElement.textContent = ticketQuantity;
+        }
+        
+        function bookNow() {
+            // In a real app, you would validate inputs here
+            goToPage(3);
+        }
+        
+        function addToCart() {
+            alert(`Added ${ticketQuantity} ticket(s) to cart! Total: RM ${(ticketQuantity * ticketPrice).toFixed(2)}`);
+        }
+        
+        // Page 3: Complete Booking
+        function goToPayment() {
+            // Get form values
+            const name = document.getElementById('participantName').value;
+            const email = document.getElementById('participantEmail').value;
+            const phone = document.getElementById('participantPhone').value;
+            
+            // Simple validation
+            if (!name || !email || !phone) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            // Update payment page with user info
+            paymentNameElement.textContent = name;
+            
+            // Generate a random booking reference
+            const randomRef = 'YSD-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+            paymentReferenceElement.textContent = randomRef;
+            
+            goToPage(4);
+        }
+        
+        // Page 4: Payment
+        function selectPayment(method) {
+            selectedPayment = method;
+            
+            // Update UI
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.remove('selected');
+            });
+            
+            event.currentTarget.classList.add('selected');
+        }
+        
+        function processPayment() {
+            // Get user details
+            const name = document.getElementById('participantName').value;
+            
+            // Update confirmation page
+            confirmationNameElement.textContent = name;
+            
+            // Set current date
+            const now = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            confirmationDateElement.textContent = now.toLocaleDateString('en-US', options);
+            
+            // Set booking reference
+            const bookingRef = paymentReferenceElement.textContent;
+            confirmationBookingRefElement.textContent = bookingRef;
+            confirmationRefElement.textContent = bookingRef;
+            
+            goToPage(5);
+        }
+        
+        // Page 5: Confirmation
+        function printTicket() {
+            // In a real app, this would generate a printable ticket
+            const printContent = `
+                <div style="font-family: Arial, sans-serif; padding: 20px;">
+                    <h2 style="color: #2c3e50;">ADMISSION TICKET YSD2024 UPM</h2>
+                    <hr style="margin: 15px 0;">
+                    <p><strong>Name of Lead Participant:</strong> ${confirmationNameElement.textContent}</p>
+                    <p><strong>Date Purchased:</strong> ${confirmationDateElement.textContent}</p>
+                    <p><strong>Quantity of Tickets:</strong> ${confirmationQuantityElement.textContent}</p>
+                    <p><strong>Booking Reference ID:</strong> ${confirmationBookingRefElement.textContent}</p>
+                    <hr style="margin: 15px 0;">
+                    <p style="text-align: center; font-size: 0.9rem; color: #666;">Present this ticket at the event entrance on 8th June 2024</p>
+                </div>
+            `;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            printWindow.print();
+        }
+        
+        // Handle quantity input change
+        quantityInput.addEventListener('change', function() {
+            if (this.value < 1) this.value = 1;
+            if (this.value > 20) this.value = 20;
+            updateTotalAmount();
+        });
+    </script>
+</body>
+</html>
