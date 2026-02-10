@@ -42,12 +42,11 @@
         
         .header-overlay {
             position: absolute;
-            top: 10;
-            left: 10;
-            right: 10;
-            bottom: 10;
-            background: linear-gradient(135deg, rgba(219, 233, 245, 0.8), rgba(220, 227, 239, 0.8));
-            border-radius: 10 10 10px 10px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
         }
         
         .header-content {
@@ -58,6 +57,7 @@
             align-items: center;
             flex-wrap: wrap;
             width: 100%;
+            padding: 0 40px;
         }
         
         .logo-container {
@@ -74,7 +74,7 @@
         .logo-text h1 {
             font-size: 2.8rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.836);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
             font-weight: 700;
             letter-spacing: 1px;
         }
@@ -93,17 +93,13 @@
         }
         
         .event-details {
-    position: absolute; /* allows you to place it anywhere */
-    top: 4cm;           /* moves the box down 4 cm from the top */
-    left: 2cm;          /* moves the box 2 cm from the left edge */
-    text-align: right;
-    background: rgba(34, 33, 33, 0.718);
-    padding: 20px;
-    border-radius: 10px;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
+            text-align: right;
+            background: rgba(162, 173, 196, 0.741);
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(162, 173, 196, 0.741);
+        }
         
         .event-date {
             font-size: 1.3rem;
@@ -232,6 +228,7 @@
             padding: 25px;
             margin-bottom: 25px;
             transition: all 0.3s ease;
+            position: relative;
         }
         
         .ticket-option:hover {
@@ -255,7 +252,30 @@
             font-size: 1.8rem;
             font-weight: bold;
             color: #4CAF50;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .ticket-price-discounted {
+            color: #ff5722;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+        
+        .promo-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: #ff5722;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
         }
         
         .note {
@@ -349,6 +369,12 @@
             margin-top: 5px;
         }
         
+        .total-savings {
+            color: #ff5722;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
         .form-group {
             margin-bottom: 20px;
         }
@@ -373,6 +399,65 @@
             border-color: #4CAF50;
             outline: none;
             box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+        
+        .participant-form {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 1px dashed #ccc;
+        }
+        
+        .participant-form h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .participant-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .participant-row:last-child {
+            border-bottom: none;
+        }
+        
+        .participant-number {
+            font-weight: bold;
+            color: #4CAF50;
+            margin-right: 10px;
+            min-width: 40px;
+        }
+        
+        .participant-field {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .add-participant-btn {
+            background-color: #e3f2fd;
+            color: #1976d2;
+            border: 1px dashed #1976d2;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .add-participant-btn:hover {
+            background-color: #bbdefb;
         }
         
         .ticket-preview {
@@ -406,6 +491,12 @@
         .preview-value {
             color: #333;
             font-weight: 500;
+        }
+        
+        .participants-summary {
+            margin-top: 15px;
+            max-height: 200px;
+            overflow-y: auto;
         }
         
         .payment-methods {
@@ -476,6 +567,22 @@
             margin-top: 30px;
         }
         
+        .participants-list {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .participant-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
         footer {
             text-align: center;
             padding: 20px;
@@ -509,25 +616,13 @@
                 flex-direction: column;
                 text-align: center;
                 gap: 25px;
+                padding: 0 20px;
             }
             
             .logo-container {
                 flex-direction: column;
                 text-align: center;
                 gap: 20px;
-            }
-            
-            .logo-image {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.8rem;
-            }
-            
-            .logo-text .event-title {
-                font-size: 1.3rem;
             }
             
             .event-details {
@@ -554,16 +649,16 @@
             .payment-method {
                 min-width: 100%;
             }
+            
+            .participant-row {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
         
         @media (max-width: 480px) {
             .logo-text h1 {
                 font-size: 1.6rem;
-            }
-            
-            .logo-image {
-                width: 80px;
-                height: 80px;
             }
             
             .step {
@@ -579,18 +674,28 @@
             .step-line {
                 top: 20px;
             }
+            
+            .navigation-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .navigation-buttons > div {
+                display: flex;
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="header-overlay"></div>
-            <div class="header-content">
-                <div class="event-details">
-                    <div class="event-date">
-                        <i class="far fa-calendar-alt"></i>
-                        <span>Event Date: 8th June 2024</span>
-                    </div>
+        <div class="header-content">
+            <div class="event-details">
+                <div class="event-date">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>8th June 2024</span>
+                </div>
                 <div class="event-location">
                     <i class="fas fa-map-marker-alt"></i>
                     <span>Universiti Putra Malaysia, Serdang</span>
@@ -613,7 +718,7 @@
             </div>
             <div class="step" id="step3">
                 <div class="step-circle">3</div>
-                <div class="step-text">Complete Booking</div>
+                <div class="step-text">Participant Details</div>
                 <div class="step-line"></div>
             </div>
             <div class="step" id="step4">
@@ -632,13 +737,22 @@
             <!-- Page 1: Select Ticket -->
             <div class="page active" id="page1">
                 <h2>Select Admission Ticket</h2>
-                <p class="note"><i class="fas fa-info-circle"></i> Free cancellation before redemption</p>
+                <p class="note"><i class="fas fa-info-circle"></i> Free cancellation before redemption. Special promotions available for group bookings.</p>
                 
                 <div class="ticket-option">
                     <h3>Kids (5 to 12 years of age)</h3>
                     <p>Admission ticket for children between 5 to 12 years old. Includes access to all YSD2024 activities at Universiti Putra Malaysia.</p>
-                    <div class="ticket-price">RM 60.00</div>
-                    <button class="btn btn-primary" onclick="selectTicket()">SELECT TICKET</button>
+                    <div class="ticket-price">RM 65.00 <span class="original-price">RM 65.00</span></div>
+                    <button class="btn btn-primary" onclick="selectTicket('single')">SELECT TICKET</button>
+                </div>
+                
+                <div class="ticket-option">
+                    <div class="promo-badge">SPECIAL PROMO</div>
+                    <h3>Group Package (3 Tickets)</h3>
+                    <p>Special promotion for group of 3 participants. Save RM 15 when booking 3 tickets together.</p>
+                    <div class="ticket-price ticket-price-discounted">RM 180.00 <span class="original-price">RM 195.00</span></div>
+                    <p style="color: #ff5722; font-weight: bold; margin-bottom: 20px;"><i class="fas fa-tag"></i> Save RM 15.00 on this package</p>
+                    <button class="btn btn-primary" onclick="selectTicket('group')">SELECT GROUP PACKAGE</button>
                 </div>
                 
                 <div class="note">
@@ -651,23 +765,28 @@
                 <h2>Booking Options</h2>
                 
                 <div class="ticket-option">
-                    <h3>Kids (5 to 12 years of age)</h3>
-                    <p>Admission ticket for children between 5 to 12 years old.</p>
-                    <div class="ticket-price">RM 60.00</div>
+                    <h3 id="bookingTicketType">Kids (5 to 12 years of age)</h3>
+                    <p id="bookingTicketDescription">Admission ticket for children between 5 to 12 years old.</p>
+                    <div class="ticket-price" id="bookingTicketPrice">RM 65.00</div>
                     
                     <div class="quantity-selector">
                         <label>Select Quantity:</label>
                         <div style="display: flex; align-items: center; margin-top: 10px;">
                             <button class="quantity-btn" onclick="decreaseQuantity()">-</button>
-                            <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="20">
+                            <input type="number" class="quantity-input" id="quantity" value="1" min="1" max="20" onchange="validateQuantity()">
                             <button class="quantity-btn" onclick="increaseQuantity()">+</button>
                         </div>
                         <p style="margin-top: 10px; color: #666; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> Can book as many numbers possible</p>
+                        
+                        <div id="promoMessage" style="margin-top: 15px; padding: 10px; background-color: #e8f5e8; border-radius: 5px; display: none;">
+                            <p style="color: #2e7d32; margin: 0;"><i class="fas fa-gift"></i> <strong>Promo Applied:</strong> You're saving RM 15.00 with the group package!</p>
+                        </div>
                     </div>
                     
                     <div class="total-section">
                         <div class="total-label">Total Amount</div>
-                        <div class="total-amount" id="totalAmount">RM 60.00</div>
+                        <div class="total-amount" id="totalAmount">RM 65.00</div>
+                        <div class="total-savings" id="totalSavings" style="display: none;">You save: RM 15.00</div>
                     </div>
                     
                     <div class="navigation-buttons">
@@ -680,31 +799,37 @@
                 </div>
             </div>
             
-            <!-- Page 3: Complete Booking -->
+            <!-- Page 3: Participant Details -->
             <div class="page" id="page3">
-                <h2>Complete Booking</h2>
-                <p class="note"><i class="fas fa-ticket-alt"></i> YSD2024 Universiti Putra Malaysia Ticket</p>
+                <h2>Participant Details</h2>
+                <p class="note"><i class="fas fa-ticket-alt"></i> Please provide details for all participants. This information will be used for certificate preparation.</p>
                 
                 <div class="form-group">
-                    <label for="participantName">Name of Lead Participant *</label>
-                    <input type="text" id="participantName" class="form-control" placeholder="Enter full name">
+                    <label for="contactPerson">Contact Person (Mother/Father/Guardian) *</label>
+                    <input type="text" id="contactPerson" class="form-control" placeholder="Enter full name">
                 </div>
                 
                 <div class="form-group">
-                    <label for="participantEmail">Email Address *</label>
-                    <input type="email" id="participantEmail" class="form-control" placeholder="Enter email address">
+                    <label for="contactEmail">Email Address *</label>
+                    <input type="email" id="contactEmail" class="form-control" placeholder="Enter email address">
                 </div>
                 
                 <div class="form-group">
-                    <label for="participantPhone">Phone Number *</label>
-                    <input type="tel" id="participantPhone" class="form-control" placeholder="Enter phone number">
+                    <label for="contactPhone">Phone Number *</label>
+                    <input type="tel" id="contactPhone" class="form-control" placeholder="Enter phone number">
+                </div>
+                
+                <h3 style="margin: 30px 0 20px;">Participants Information <span style="font-size: 1rem; color: #666;">(for certificate preparation)</span></h3>
+                
+                <div id="participantsContainer">
+                    <!-- Participant forms will be dynamically added here -->
                 </div>
                 
                 <div class="ticket-preview">
                     <h4>Booking Summary</h4>
                     <div class="preview-item">
                         <span class="preview-label">Ticket Type:</span>
-                        <span class="preview-value">Kids (5 to 12 years of age)</span>
+                        <span class="preview-value" id="previewTicketType">Kids (5 to 12 years of age)</span>
                     </div>
                     <div class="preview-item">
                         <span class="preview-label">Event Date:</span>
@@ -716,13 +841,13 @@
                     </div>
                     <div class="preview-item">
                         <span class="preview-label">Total Amount:</span>
-                        <span class="preview-value" id="previewTotal">RM 60.00</span>
+                        <span class="preview-value" id="previewTotal">RM 65.00</span>
                     </div>
                 </div>
                 
                 <div class="navigation-buttons">
                     <button class="btn btn-secondary" onclick="goToPage(2)">Back</button>
-                    <button class="btn btn-primary" onclick="goToPayment()">GO TO PAYMENT</button>
+                    <button class="btn btn-primary" onclick="validateParticipantDetails()">GO TO PAYMENT</button>
                 </div>
                 
                 <p style="margin-top: 20px; color: #666; font-size: 0.9rem; text-align: center;">
@@ -738,16 +863,24 @@
                 <div class="ticket-preview">
                     <h4>Payment Summary</h4>
                     <div class="preview-item">
-                        <span class="preview-label">Name:</span>
-                        <span class="preview-value" id="paymentName">-</span>
+                        <span class="preview-label">Contact Person:</span>
+                        <span class="preview-value" id="paymentContact">-</span>
                     </div>
                     <div class="preview-item">
                         <span class="preview-label">Amount to Pay:</span>
-                        <span class="preview-value" id="paymentAmount">RM 60.00</span>
+                        <span class="preview-value" id="paymentAmount">RM 65.00</span>
                     </div>
                     <div class="preview-item">
                         <span class="preview-label">Booking Reference:</span>
                         <span class="preview-value" id="paymentReference">YSD-2024-001</span>
+                    </div>
+                    <div class="preview-item">
+                        <span class="preview-label">Number of Participants:</span>
+                        <span class="preview-value" id="paymentParticipants">1</span>
+                    </div>
+                    
+                    <div class="participants-summary" id="participantsSummary">
+                        <!-- Participants list will be added here -->
                     </div>
                 </div>
                 
@@ -777,7 +910,7 @@
                 </div>
                 
                 <div class="note" style="margin-top: 30px;">
-                    <p><strong>Note:</strong> After purchasing ticket, the purchaser will be given admission ticket through their email.</p>
+                    <p><strong>Note:</strong> After purchasing ticket, the admission tickets will be sent to your email. Participant details will be used for certificate preparation.</p>
                 </div>
             </div>
             
@@ -788,16 +921,16 @@
                         <i class="fas fa-check-circle"></i>
                     </div>
                     <h2>Booking Successful!</h2>
-                    <p>Your admission ticket for YSD2024 UPM has been booked successfully.</p>
-                    <p>The admission ticket will be sent to your email shortly.</p>
+                    <p>Your admission tickets for YSD2024 UPM have been booked successfully.</p>
+                    <p>The admission tickets will be sent to your email shortly.</p>
                     
                     <div class="booking-id" id="confirmationRef">YSD-2024-001</div>
                     
                     <div class="ticket-preview" style="max-width: 500px; margin: 30px auto;">
                         <h4>Admission Ticket YSD2024 UPM</h4>
                         <div class="preview-item">
-                            <span class="preview-label">Name of Lead Participant:</span>
-                            <span class="preview-value" id="confirmationName">-</span>
+                            <span class="preview-label">Contact Person:</span>
+                            <span class="preview-value" id="confirmationContact">-</span>
                         </div>
                         <div class="preview-item">
                             <span class="preview-label">Date Purchased:</span>
@@ -810,6 +943,10 @@
                         <div class="preview-item">
                             <span class="preview-label">Booking Reference ID:</span>
                             <span class="preview-value" id="confirmationBookingRef">-</span>
+                        </div>
+                        
+                        <div class="participants-summary" id="confirmationParticipants">
+                            <!-- Participants list for confirmation -->
                         </div>
                     </div>
                     
@@ -831,27 +968,41 @@
         // Current page state
         let currentPage = 1;
         let ticketQuantity = 1;
-        const ticketPrice = 60.00;
+        let ticketType = 'single'; // 'single' or 'group'
+        const singleTicketPrice = 65.00;
+        const groupTicketPrice = 180.00; // for 3 tickets
         let selectedPayment = 'fpx';
+        let participants = [];
         
         // DOM elements
         const quantityInput = document.getElementById('quantity');
         const totalAmountElement = document.getElementById('totalAmount');
+        const totalSavingsElement = document.getElementById('totalSavings');
+        const promoMessageElement = document.getElementById('promoMessage');
         const previewQuantityElement = document.getElementById('previewQuantity');
         const previewTotalElement = document.getElementById('previewTotal');
-        const paymentNameElement = document.getElementById('paymentName');
+        const bookingTicketTypeElement = document.getElementById('bookingTicketType');
+        const bookingTicketDescriptionElement = document.getElementById('bookingTicketDescription');
+        const bookingTicketPriceElement = document.getElementById('bookingTicketPrice');
+        const previewTicketTypeElement = document.getElementById('previewTicketType');
+        const paymentContactElement = document.getElementById('paymentContact');
         const paymentAmountElement = document.getElementById('paymentAmount');
         const paymentReferenceElement = document.getElementById('paymentReference');
-        const confirmationNameElement = document.getElementById('confirmationName');
+        const paymentParticipantsElement = document.getElementById('paymentParticipants');
+        const participantsSummaryElement = document.getElementById('participantsSummary');
+        const confirmationContactElement = document.getElementById('confirmationContact');
         const confirmationDateElement = document.getElementById('confirmationDate');
         const confirmationQuantityElement = document.getElementById('confirmationQuantity');
         const confirmationBookingRefElement = document.getElementById('confirmationBookingRef');
         const confirmationRefElement = document.getElementById('confirmationRef');
+        const confirmationParticipantsElement = document.getElementById('confirmationParticipants');
         
         // Initialize the page
         document.addEventListener('DOMContentLoaded', function() {
             updateTotalAmount();
             updateStepIndicators();
+            // Add initial participant form
+            addParticipantForm();
         });
         
         // Navigation functions
@@ -887,18 +1038,53 @@
         }
         
         // Page 1: Select Ticket
-        function selectTicket() {
+        function selectTicket(type) {
+            ticketType = type;
+            
+            if (type === 'group') {
+                // Set to 3 tickets for group package
+                ticketQuantity = 3;
+                quantityInput.value = 3;
+                quantityInput.min = 3;
+                quantityInput.max = 3;
+                quantityInput.readOnly = true;
+                
+                bookingTicketTypeElement.textContent = 'Group Package (3 Tickets)';
+                bookingTicketDescriptionElement.textContent = 'Special promotion for group of 3 participants. Save RM 15 when booking 3 tickets together.';
+                bookingTicketPriceElement.textContent = 'RM 180.00';
+                bookingTicketPriceElement.classList.add('ticket-price-discounted');
+                previewTicketTypeElement.textContent = 'Group Package (3 Tickets)';
+            } else {
+                // Single ticket
+                ticketQuantity = 1;
+                quantityInput.value = 1;
+                quantityInput.min = 1;
+                quantityInput.max = 20;
+                quantityInput.readOnly = false;
+                
+                bookingTicketTypeElement.textContent = 'Kids (5 to 12 years of age)';
+                bookingTicketDescriptionElement.textContent = 'Admission ticket for children between 5 to 12 years old.';
+                bookingTicketPriceElement.textContent = 'RM 65.00';
+                bookingTicketPriceElement.classList.remove('ticket-price-discounted');
+                previewTicketTypeElement.textContent = 'Kids (5 to 12 years of age)';
+            }
+            
+            updateTotalAmount();
             goToPage(2);
         }
         
         // Page 2: Booking Options
         function increaseQuantity() {
+            if (ticketType === 'group') return; // Can't change quantity for group package
+            
             ticketQuantity = parseInt(quantityInput.value) + 1;
             quantityInput.value = ticketQuantity;
             updateTotalAmount();
         }
         
         function decreaseQuantity() {
+            if (ticketType === 'group') return; // Can't change quantity for group package
+            
             if (ticketQuantity > 1) {
                 ticketQuantity = parseInt(quantityInput.value) - 1;
                 quantityInput.value = ticketQuantity;
@@ -906,9 +1092,44 @@
             }
         }
         
+        function validateQuantity() {
+            if (ticketType === 'group') {
+                quantityInput.value = 3;
+                return;
+            }
+            
+            let value = parseInt(quantityInput.value);
+            if (isNaN(value) || value < 1) value = 1;
+            if (value > 20) value = 20;
+            quantityInput.value = value;
+            ticketQuantity = value;
+            updateTotalAmount();
+        }
+        
         function updateTotalAmount() {
             ticketQuantity = parseInt(quantityInput.value);
-            const total = ticketQuantity * ticketPrice;
+            let total = 0;
+            let savings = 0;
+            
+            if (ticketType === 'group') {
+                total = groupTicketPrice;
+                savings = (singleTicketPrice * 3) - groupTicketPrice;
+                totalSavingsElement.textContent = `You save: RM ${savings.toFixed(2)}`;
+                totalSavingsElement.style.display = 'block';
+                promoMessageElement.style.display = 'block';
+            } else {
+                total = ticketQuantity * singleTicketPrice;
+                totalSavingsElement.style.display = 'none';
+                promoMessageElement.style.display = 'none';
+                
+                // Check if quantity qualifies for group discount
+                if (ticketQuantity >= 3) {
+                    // Suggest group package
+                    promoMessageElement.innerHTML = `<p style="color: #2e7d32; margin: 0;"><i class="fas fa-info-circle"></i> <strong>Tip:</strong> You can save RM ${(singleTicketPrice * 3 - groupTicketPrice).toFixed(2)} by selecting the Group Package (3 tickets for RM 180.00)</p>`;
+                    promoMessageElement.style.display = 'block';
+                }
+            }
+            
             totalAmountElement.textContent = `RM ${total.toFixed(2)}`;
             
             // Update preview on page 3
@@ -923,35 +1144,135 @@
         }
         
         function bookNow() {
-            // In a real app, you would validate inputs here
+            // Update participant forms based on quantity
+            updateParticipantForms();
+            
             goToPage(3);
         }
         
         function addToCart() {
-            alert(`Added ${ticketQuantity} ticket(s) to cart! Total: RM ${(ticketQuantity * ticketPrice).toFixed(2)}`);
+            alert(`Added ${ticketQuantity} ticket(s) to cart! Total: RM ${(ticketType === 'group' ? groupTicketPrice : ticketQuantity * singleTicketPrice).toFixed(2)}`);
         }
         
-        // Page 3: Complete Booking
-        function goToPayment() {
-            // Get form values
-            const name = document.getElementById('participantName').value;
-            const email = document.getElementById('participantEmail').value;
-            const phone = document.getElementById('participantPhone').value;
+        // Page 3: Participant Details
+        function updateParticipantForms() {
+            const container = document.getElementById('participantsContainer');
+            container.innerHTML = '';
             
-            // Simple validation
-            if (!name || !email || !phone) {
-                alert('Please fill in all required fields.');
+            // Add forms for each ticket
+            for (let i = 1; i <= ticketQuantity; i++) {
+                addParticipantForm(i);
+            }
+        }
+        
+        function addParticipantForm(index) {
+            const container = document.getElementById('participantsContainer');
+            const participantNumber = container.children.length + 1;
+            
+            const participantForm = document.createElement('div');
+            participantForm.className = 'participant-form';
+            participantForm.innerHTML = `
+                <h4>Participant ${participantNumber} Details</h4>
+                <div class="participant-row">
+                    <div class="participant-number">${participantNumber}.</div>
+                    <div class="participant-field">
+                        <label for="participantName${participantNumber}">Full Name *</label>
+                        <input type="text" id="participantName${participantNumber}" class="form-control" placeholder="Enter participant's full name">
+                    </div>
+                    <div class="participant-field">
+                        <label for="participantIC${participantNumber}">IC/Passport Number *</label>
+                        <input type="text" id="participantIC${participantNumber}" class="form-control" placeholder="Enter IC or passport number">
+                    </div>
+                    <div class="participant-field">
+                        <label for="participantAge${participantNumber}">Age *</label>
+                        <input type="number" id="participantAge${participantNumber}" class="form-control" placeholder="Age" min="5" max="12">
+                    </div>
+                </div>
+            `;
+            
+            container.appendChild(participantForm);
+        }
+        
+        function validateParticipantDetails() {
+            // Get contact person details
+            const contactPerson = document.getElementById('contactPerson').value;
+            const contactEmail = document.getElementById('contactEmail').value;
+            const contactPhone = document.getElementById('contactPhone').value;
+            
+            // Simple validation for contact person
+            if (!contactPerson || !contactEmail || !contactPhone) {
+                alert('Please fill in all contact person details.');
                 return;
             }
             
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(contactEmail)) {
+                alert('Please enter a valid email address.');
+                return;
+            }
+            
+            // Validate participant details
+            const participantCount = document.getElementById('participantsContainer').children.length;
+            participants = [];
+            
+            for (let i = 1; i <= participantCount; i++) {
+                const name = document.getElementById(`participantName${i}`)?.value;
+                const ic = document.getElementById(`participantIC${i}`)?.value;
+                const age = document.getElementById(`participantAge${i}`)?.value;
+                
+                if (!name || !ic || !age) {
+                    alert(`Please fill in all details for Participant ${i}`);
+                    return;
+                }
+                
+                if (parseInt(age) < 5 || parseInt(age) > 12) {
+                    alert(`Participant ${i} age must be between 5 and 12 years old.`);
+                    return;
+                }
+                
+                participants.push({
+                    number: i,
+                    name: name,
+                    ic: ic,
+                    age: age
+                });
+            }
+            
             // Update payment page with user info
-            paymentNameElement.textContent = name;
+            paymentContactElement.textContent = contactPerson;
+            paymentParticipantsElement.textContent = participantCount;
+            
+            // Update participants summary
+            updateParticipantsSummary();
             
             // Generate a random booking reference
             const randomRef = 'YSD-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
             paymentReferenceElement.textContent = randomRef;
             
             goToPage(4);
+        }
+        
+        function updateParticipantsSummary() {
+            participantsSummaryElement.innerHTML = '';
+            
+            if (participants.length === 0) return;
+            
+            const summaryTitle = document.createElement('div');
+            summaryTitle.innerHTML = '<strong>Participants:</strong>';
+            summaryTitle.style.marginTop = '15px';
+            summaryTitle.style.marginBottom = '10px';
+            participantsSummaryElement.appendChild(summaryTitle);
+            
+            participants.forEach(participant => {
+                const participantDiv = document.createElement('div');
+                participantDiv.className = 'participant-item';
+                participantDiv.innerHTML = `
+                    <span>${participant.number}. ${participant.name}</span>
+                    <span>IC: ${participant.ic}</span>
+                `;
+                participantsSummaryElement.appendChild(participantDiv);
+            });
         }
         
         // Page 4: Payment
@@ -967,11 +1288,11 @@
         }
         
         function processPayment() {
-            // Get user details
-            const name = document.getElementById('participantName').value;
+            // Get contact person details
+            const contactPerson = document.getElementById('contactPerson').value;
             
             // Update confirmation page
-            confirmationNameElement.textContent = name;
+            confirmationContactElement.textContent = contactPerson;
             
             // Set current date
             const now = new Date();
@@ -983,37 +1304,136 @@
             confirmationBookingRefElement.textContent = bookingRef;
             confirmationRefElement.textContent = bookingRef;
             
+            // Update confirmation participants list
+            updateConfirmationParticipants();
+            
             goToPage(5);
+        }
+        
+        function updateConfirmationParticipants() {
+            confirmationParticipantsElement.innerHTML = '';
+            
+            if (participants.length === 0) return;
+            
+            const summaryTitle = document.createElement('div');
+            summaryTitle.innerHTML = '<strong>Participants:</strong>';
+            summaryTitle.style.marginTop = '15px';
+            summaryTitle.style.marginBottom = '10px';
+            confirmationParticipantsElement.appendChild(summaryTitle);
+            
+            participants.forEach(participant => {
+                const participantDiv = document.createElement('div');
+                participantDiv.className = 'participant-item';
+                participantDiv.innerHTML = `
+                    <span>${participant.number}. ${participant.name}</span>
+                    <span>IC: ${participant.ic}, Age: ${participant.age}</span>
+                `;
+                confirmationParticipantsElement.appendChild(participantDiv);
+            });
         }
         
         // Page 5: Confirmation
         function printTicket() {
-            // In a real app, this would generate a printable ticket
+            // Generate printable ticket with all participant details
+            let participantsHTML = '';
+            participants.forEach(p => {
+                participantsHTML += `
+                    <tr>
+                        <td>${p.number}</td>
+                        <td>${p.name}</td>
+                        <td>${p.ic}</td>
+                        <td>${p.age}</td>
+                    </tr>
+                `;
+            });
+            
             const printContent = `
-                <div style="font-family: Arial, sans-serif; padding: 20px;">
-                    <h2 style="color: #2c3e50;">ADMISSION TICKET YSD2024 UPM</h2>
-                    <hr style="margin: 15px 0;">
-                    <p><strong>Name of Lead Participant:</strong> ${confirmationNameElement.textContent}</p>
-                    <p><strong>Date Purchased:</strong> ${confirmationDateElement.textContent}</p>
-                    <p><strong>Quantity of Tickets:</strong> ${confirmationQuantityElement.textContent}</p>
-                    <p><strong>Booking Reference ID:</strong> ${confirmationBookingRefElement.textContent}</p>
-                    <hr style="margin: 15px 0;">
-                    <p style="text-align: center; font-size: 0.9rem; color: #666;">Present this ticket at the event entrance on 8th June 2024</p>
-                </div>
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>YSD2024 UPM Admission Ticket</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        .ticket { border: 2px solid #2c3e50; border-radius: 10px; padding: 20px; max-width: 800px; margin: 0 auto; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .header h1 { color: #2c3e50; margin-bottom: 5px; }
+                        .header h2 { color: #4CAF50; margin-top: 0; }
+                        .info { margin-bottom: 20px; }
+                        .info-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #eee; }
+                        .label { font-weight: bold; color: #666; }
+                        .value { color: #333; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th { background-color: #f5f5f5; padding: 10px; text-align: left; border-bottom: 2px solid #ddd; }
+                        td { padding: 10px; border-bottom: 1px solid #eee; }
+                        .footer { text-align: center; margin-top: 30px; font-size: 0.9rem; color: #666; }
+                        @media print {
+                            .no-print { display: none; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div class="ticket">
+                        <div class="header">
+                            <h1>YOUTH SPORTS DAY 2024</h1>
+                            <h2>Universiti Putra Malaysia</h2>
+                            <p>8th June 2024 | Universiti Putra Malaysia, Serdang</p>
+                        </div>
+                        
+                        <div class="info">
+                            <div class="info-row">
+                                <span class="label">Contact Person:</span>
+                                <span class="value">${confirmationContactElement.textContent}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Booking Reference ID:</span>
+                                <span class="value">${confirmationBookingRefElement.textContent}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Date Purchased:</span>
+                                <span class="value">${confirmationDateElement.textContent}</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="label">Number of Tickets:</span>
+                                <span class="value">${confirmationQuantityElement.textContent}</span>
+                            </div>
+                        </div>
+                        
+                        <h3>Participant Details (for certificate preparation)</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>IC/Passport Number</th>
+                                    <th>Age</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${participantsHTML}
+                            </tbody>
+                        </table>
+                        
+                        <div class="footer">
+                            <p>Present this ticket at the event entrance on 8th June 2024</p>
+                            <p>For inquiries: ysd2024@upm.edu.my | +603-9769 1234</p>
+                        </div>
+                    </div>
+                    
+                    <div class="no-print" style="text-align: center; margin-top: 20px;">
+                        <button onclick="window.print()">Print Ticket</button>
+                        <button onclick="window.close()">Close</button>
+                    </div>
+                </body>
+                </html>
             `;
             
             const printWindow = window.open('', '_blank');
             printWindow.document.write(printContent);
             printWindow.document.close();
-            printWindow.print();
         }
         
         // Handle quantity input change
-        quantityInput.addEventListener('change', function() {
-            if (this.value < 1) this.value = 1;
-            if (this.value > 20) this.value = 20;
-            updateTotalAmount();
-        });
+        quantityInput.addEventListener('change', validateQuantity);
     </script>
 </body>
 </html>
